@@ -859,16 +859,6 @@ tr.row-warn td { background: #FFFAEB !important; }
           * Cx / Pallet considera o maior valor da coluna Pal Max dentro do grupo. Grupos com status Excede exibem Pal. Nec. = 0. Tabela ordenada por Alt. Pallet (decrescente).
         </div>
 
-
-        document.getElementById('formulaContainer').innerHTML = `
-        <div class="formula-box">
-          <strong>Fórmula aplicada:</strong> ${formulaDetalhe}
-          &nbsp;·&nbsp; Grupos com excedente ficam com <strong>Pal. Nec. = 0</strong> e não entram na ocupação.
-          &nbsp;·&nbsp; Maior palete: ${(maiorAlturaPalletGeral/100).toFixed(2)}m | máx. permitido: ${alturaMaxPalete.toFixed(2)}m | altura livre: ${alturaLivreVeic.toFixed(2)}m
-        </div>
-      `;
-
-
         <div class="step-actions" style="margin-top:24px;">
           <button class="btn-back" onclick="goToStep(3)">← Ajustar veículo</button>
           <button class="btn-next" style="background:var(--navy);" onclick="imprimirRelatorio()">🖨️ Imprimir relatório</button>
@@ -1472,6 +1462,47 @@ function processarCarga() {
   calcularTudo(materiais, codigosNaoEncontrados);
 }
 
+// ══════════════════════════════════════════════════════════════
+// CÁLCULO DE ALTURA REAL DA CARGA POR CAMADAS
+// ══════════════════════════════════════════════════════════════
+// Em vez de assumir sempre a altura "cheia" do cadastro (altPallet) mesmo quando
+// o palete está parcialmente carregado, calculamos quantas camadas de caixas
+// cabem fisicamente no palete (com base nas dimensões da caixa: Lcm x Ccm, sobre
+// a área padrão do palete 1,00m x 1,20m) e multiplicamos pela altura de 1 camada.
+// Isso reflete a realidade: um palete com metade das caixas tem aproximadamente
+// metade da altura, mas sempre em camadas inteiras (não dá pra ter "meia camada").
+const PALETE_BASE_L_CM = 100; // 1,00 m
+const PALETE_BASE_C_CM = 120; // 1,20 m
+
+// Quantas caixas (na base) cabem por camada no palete padrão, testando as duas orientações
+function caixasPorCamada(Lcm, Ccm) {
+  const L = Number(Lcm) || 0;
+  const C = Number(Ccm) || 0;
+  if (L <= 0 || C <= 0) return 1;
+  const orientacaoA = Math.floor(PALETE_BASE_L_CM / L) * Math.floor(PALETE_BASE_C_CM / C);
+  const orientacaoB = Math.floor(PALETE_BASE_L_CM / C) * Math.floor(PALETE_BASE_C_CM / L);
+  return Math.max(orientacaoA, orientacaoB, 1);
+}
+
+// Altura de UMA camada de caixas (cm), derivada do cadastro: altura do palete cheio (altPallet)
+// dividida pelo número de camadas necessárias para acomodar palMax caixas.
+function alturaPorCamada(prod) {
+  const porCamada = caixasPorCamada(prod.Lcm, prod.Ccm);
+  const palMax = Number(prod.palMax || prod.cxPallet || 0);
+  const camadasParaCompletar = Math.max(1, Math.ceil(palMax / porCamada));
+  return (Number(prod.altPallet) || 0) / camadasParaCompletar;
+}
+
+// Altura real (cm) de um palete carregado com `qtdeCxNoPalete` caixas deste produto,
+// calculada em camadas inteiras (arredondando para cima, já que uma camada parcial
+// ainda ocupa a altura de uma camada completa).
+function calcularAlturaCargaPorCamadas(prod, qtdeCxNoPalete) {
+  if (qtdeCxNoPalete <= 0) return 0;
+  const porCamada = caixasPorCamada(prod.Lcm, prod.Ccm);
+  const camadasNec = Math.ceil(qtdeCxNoPalete / porCamada);
+  return camadasNec * alturaPorCamada(prod);
+}
+
 function calcularTudo(materiais, codigosNaoEncontrados) {
   const paletesDisp = parseFloat(document.getElementById('paletesDisp').value) || 0;
   const compVeic = parseFloat(document.getElementById('compVeic').value) || 0;
@@ -1485,7 +1516,7 @@ function calcularTudo(materiais, codigosNaoEncontrados) {
 
   const gruposMap = {};
   grupos.forEach(g => {
-    gruposMap[g] = { codigos:[], qtdeZWM:0, qtdeCX:0, qtdeOriginalKg:0, plcxRef:0, pesoBruto:0, cxPallet:0, maiorAlturaPallet:0, UM:'', paletesNecReal:0, paletesNecExibicao:0, paletesMax:0, cxMaxPaletiz:0, cxFora:0, status:'', obs:'' };
+    gruposMap[g] = { codigos:[], qtdeZWM:0, qtdeCX:0, qtdeOriginalKg:0, plcxRef:0, pesoBruto:0, cxPallet:0, maiorAlturaPallet:0, produtoRefAltura:null, UM:'', paletesNecReal:0, paletesNecExibicao:0, paletesMax:0, cxMaxPaletiz:0, cxFora:0, status:'', obs:'' };
   });
 
   materiais.forEach(mat => {
@@ -1500,7 +1531,7 @@ function calcularTudo(materiais, codigosNaoEncontrados) {
     const capPalMax = Number(mat.prod.palMax || mat.prod.cxPallet || 0);
     if (capPalMax > g.cxPallet) g.cxPallet = capPalMax;
     if (!g.UM) g.UM = mat.prod.UM;
-    if (mat.prod.altPallet > g.maiorAlturaPallet) g.maiorAlturaPallet = mat.prod.altPallet;
+    if (mat.prod.altPallet > g.maiorAlturaPallet) { g.maiorAlturaPallet = mat.prod.altPallet; g.produtoRefAltura = mat.prod; }
     g.codigos.push(mat.codigo);
   });
 
@@ -1509,9 +1540,22 @@ function calcularTudo(materiais, codigosNaoEncontrados) {
     const grupo = gruposMap[g];
     totalCX += grupo.qtdeCX;
     totalPesoBruto += grupo.pesoBruto;
-    if (grupo.maiorAlturaPallet > maiorAlturaPalletGeral) maiorAlturaPalletGeral = grupo.maiorAlturaPallet;
     if (grupo.cxPallet > 0 && grupo.qtdeCX > 0) grupo.paletesNecReal = Math.ceil(grupo.qtdeCX / grupo.cxPallet);
     else grupo.paletesNecReal = 0;
+
+    // ── ALTURA REAL POR CAMADAS ──
+    // Se o grupo não enche nem 1 palete completo (todas as caixas cabem em um único
+    // palete parcial), a altura do cadastro (altPallet, que pressupõe o palete cheio
+    // com palMax caixas) não se aplica — calculamos a altura real por camadas, de
+    // acordo com a quantidade de caixas que de fato está nesse palete.
+    // Quando há pelo menos 1 palete completo no grupo, mantemos a altura do cadastro
+    // (igual à lógica original), pois ela reflete o palete mais cheio.
+    const temPaleteCompleto = grupo.paletesNecReal >= 2 || (grupo.paletesNecReal === 1 && grupo.qtdeCX >= grupo.cxPallet);
+    if (!temPaleteCompleto && grupo.produtoRefAltura && grupo.qtdeCX > 0) {
+      grupo.maiorAlturaPallet = calcularAlturaCargaPorCamadas(grupo.produtoRefAltura, grupo.qtdeCX);
+    }
+
+    if (grupo.maiorAlturaPallet > maiorAlturaPalletGeral) maiorAlturaPalletGeral = grupo.maiorAlturaPallet;
   });
 
   const alocacao = {};
@@ -1738,6 +1782,14 @@ function calcularTudo(materiais, codigosNaoEncontrados) {
       <td>${(maiorAlturaPalletGeral/100).toFixed(2)} m</td>
       <td colspan="2">Ocup.: ${ocupacaoTotal.toFixed(2)} m (${percOcup.toFixed(1)}%) · ${totalCxFora.toFixed(1)} cx fora</td>
     </tr>
+  `;
+
+  document.getElementById('formulaContainer').innerHTML = `
+    <div class="formula-box">
+      <strong>Fórmula aplicada:</strong> ${formulaDetalhe}
+      &nbsp;·&nbsp; Grupos com excedente ficam com <strong>Pal. Nec. = 0</strong> e não entram na ocupação.
+      &nbsp;·&nbsp; Maior palete: ${(maiorAlturaPalletGeral/100).toFixed(2)}m | máx. permitido: ${alturaMaxPalete.toFixed(2)}m | altura livre: ${alturaLivreVeic.toFixed(2)}m
+    </div>
   `;
 }
 
