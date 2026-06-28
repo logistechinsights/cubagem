@@ -1,11 +1,327 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Cubagem 5005 — Linha Refrigerada</title><style>
-:root{--navy:#0B1F3A;--teal:#0EA5A5;--ink:#0A2540;--soft:#5B6B82;--bg:#EEF2F8;--border:#DCE3ED;--ok:#0A7E3D;--okbg:#DCF3E4;--warn:#8A5A00;--warnbg:#FEF3CD;--bad:#9F2330;--badbg:#FBDFE1;--info:#DBEEF5}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);padding:24px 16px}.shell{max-width:900px;margin:auto}.topbar{background:linear-gradient(120deg,#0B1F3A,#14315C,#0B7C7C);color:#fff;padding:22px 28px;border-radius:22px 22px 0 0;display:flex;justify-content:space-between;align-items:center;gap:16px}.topbar h1{font-size:1.2rem}.topbar-sub{font-size:.76rem;opacity:.75}.btn-print,.btn-next,.btn-back,.btn-clear{cursor:pointer;border-radius:30px;font-weight:700}.btn-print{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25);padding:9px 18px}.progress-trail{background:#fff;border:1px solid var(--border);border-bottom:none;padding:0 24px;display:flex;align-items:center}.trail-step{flex:1;text-align:center;padding:14px 4px;opacity:.45}.trail-step.active,.trail-step.done{opacity:1}.trail-num{display:inline-flex;width:28px;height:28px;border-radius:50%;align-items:center;justify-content:center;background:var(--border);font-weight:800}.trail-step.active .trail-num{background:var(--teal);color:#fff}.trail-step.done .trail-num{background:#0B7C7C;color:#fff}.trail-label{font-size:.68rem;text-transform:uppercase;font-weight:800;color:var(--soft);margin-top:5px}.trail-connector{width:30px;height:1px;background:var(--border)}.trail-connector.done{background:var(--teal)}.panels{background:#fff;border:1px solid var(--border);border-radius:0 0 22px 22px}.step-panel{display:none}.step-panel.active{display:block}.step-header{padding:28px 32px 0;display:flex;gap:14px}.step-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--navy),#0B7C7C);display:flex;align-items:center;justify-content:center}.step-bubble{background:#F0F5FB;border:1px solid var(--border);border-radius:4px 16px 16px;padding:12px 18px;flex:1}.step-bubble p{font-size:.84rem;color:var(--soft);line-height:1.5}.step-body,.resultado-wrap{padding:24px 32px 32px}.field-row,.capacity-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:14px}.capacity-grid{grid-template-columns:repeat(3,1fr)}.capacity-grid-2{grid-template-columns:repeat(2,1fr)}.field{display:flex;flex-direction:column;gap:7px}.field label{font-size:.74rem;font-weight:800;text-transform:uppercase;color:var(--soft)}input,select,textarea{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:11px;background:#FBFCFE;color:var(--ink)}textarea{min-height:170px;font-family:Consolas,'Courier New',monospace;line-height:1.6}.vehicle-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px}.vehicle-btn{background:#F3F7FD;border:1.5px solid var(--border);border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer}.vehicle-btn.selected{border-color:var(--teal);background:#E0F5F5;box-shadow:0 0 0 3px rgba(14,165,165,.18)}.v-icon{font-size:1.35rem;display:block}.v-name{font-size:.7rem;font-weight:800;text-transform:uppercase}.v-paletes{font-size:.65rem;color:var(--soft)}.mode-info,.formula-box{background:var(--info);border:1px solid #AEDCE5;border-radius:11px;padding:10px 14px;font-size:.83rem}.step-actions{display:flex;align-items:center;gap:10px;margin-top:22px;flex-wrap:wrap}.btn-next{background:var(--teal);color:#fff;border:none;padding:12px 28px}.btn-back{background:#fff;border:1.5px solid var(--border);color:var(--soft);padding:11px 22px}.btn-clear{background:transparent;border:none;color:var(--soft);margin-left:auto}.alert-box{background:var(--warnbg);color:var(--warn);padding:9px 14px;border-radius:10px;margin-top:8px}.badge{display:inline-block;padding:4px 12px;border-radius:30px;font-size:.74rem;font-weight:800}.badge-ok{background:var(--okbg);color:var(--ok)}.badge-warn{background:var(--warnbg);color:var(--warn)}.badge-danger{background:var(--badbg);color:var(--bad)}.badge-frete{display:inline-block;padding:6px 16px;border-radius:30px;font-size:.78rem;font-weight:800;margin-top:8px}.badge-cif{background:#E7E5FF;color:#4338CA}.badge-fob{background:#FFE8D6;color:#9A3412}.status-painel{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}.status-chip{border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center;border-top:3px solid var(--border)}.chip-ok{border-top-color:var(--ok)}.chip-warn{border-top-color:var(--warn)}.chip-danger{border-top-color:var(--bad)}.chip-label{display:block;font-size:.65rem;color:var(--soft);font-weight:800;text-transform:uppercase;margin-bottom:6px}.gauge-wrap{background:#F5F8FD;border:1px solid var(--border);border-radius:14px;padding:14px 18px;margin-bottom:18px}.gauge-header{display:flex;justify-content:space-between;font-weight:800;color:var(--soft);font-size:.76rem;text-transform:uppercase;margin-bottom:8px}.gauge-header strong{color:var(--ink);font-size:1.05rem}.gauge-track{height:14px;background:#E0E8F3;border-radius:30px;overflow:hidden}.gauge-fill{height:100%;border-radius:30px}.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.kpi-card{background:#fff;border:1px solid var(--border);border-top:3px solid var(--teal);border-radius:13px;padding:12px 10px;text-align:center}.kpi-alert{background:var(--badbg);border-top-color:var(--bad)}.kpi-val{font-size:1.35rem;font-weight:900}.danger{color:var(--bad)}.kpi-label{font-size:.64rem;text-transform:uppercase;color:var(--soft);font-weight:800}.pallet-viz-wrap{background:#F0F6FF;border:1px solid #C8DAEE;border-radius:16px;padding:18px 20px;margin-bottom:18px}.pallet-viz-header{display:flex;justify-content:space-between;margin-bottom:14px}.pallet-viz-title{font-size:.76rem;font-weight:800;text-transform:uppercase;color:var(--soft)}.pallet-viz-badge{background:var(--navy);color:#fff;font-size:.7rem;font-weight:800;padding:3px 12px;border-radius:20px}.pallet-svg-container{overflow-x:auto}.table-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:13px}table{width:100%;border-collapse:collapse;min-width:700px;font-size:.8rem}th{background:var(--navy);color:#fff;padding:10px 8px;text-transform:uppercase;font-size:.72rem}td{padding:9px 8px;border-bottom:1px solid var(--border);text-align:center;background:#fff}.totals-row td{background:#E2EDFB!important;font-weight:800}.row-warn td{background:#FFFAEB!important}.row-lowheight td,.row-danger td{background:#FDF0F1!important}.status-ok{color:var(--ok);font-weight:800}.status-excede{color:var(--bad);font-weight:800}.alerta-critico{background:var(--badbg);border:1px solid #F2AEB6;color:var(--bad);padding:12px 18px;border-radius:12px;margin-bottom:16px;font-size:.85rem;font-weight:800}.altura-baixa-tag{display:inline-block;margin-left:5px;padding:2px 7px;border-radius:999px;background:var(--badbg);border:1px solid #F2AEB6;color:var(--bad);font-size:.62rem;font-weight:900;text-transform:uppercase}.app-footer{text-align:center;margin-top:16px;font-size:.72rem;color:var(--soft)}.print-header{display:none}@media(max-width:760px){.vehicle-grid,.capacity-grid,.status-painel,.kpi-grid{grid-template-columns:repeat(2,1fr)}}@media print{@page{size:A4;margin:12mm}body{background:#fff;padding:0}.topbar,.progress-trail,.step-actions,.step-header,.no-print{display:none!important}.panels{border:none}.step-panel{display:block!important}#step1,#step2,#step3{display:none!important}.resultado-wrap{padding:0}.print-header{display:block!important}th,.badge,.kpi-card,.status-chip,.gauge-fill,.alerta-critico,.formula-box,.pallet-viz-wrap{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-</style></head><body><div class="shell"><div class="topbar no-print"><div><h1>🚛 Pré-Cubagem — Linha Refrigerada</h1><p class="topbar-sub">Calculadora de Cubagem e Paletização · Controle de Carregamento</p></div><button class="btn-print" onclick="imprimirRelatorio()">🖨️ Imprimir</button></div><div class="print-header" style="background:var(--navy);color:white;padding:16px 24px"><h1 style="font-size:1.1rem">🚛 Pré-Cubagem — Relatório de Cubagem e Paletização</h1><div style="font-size:.75rem;opacity:.8;margin-top:4px" id="dataImpressao"></div></div><div class="progress-trail no-print"><div class="trail-step active" id="trail-1" onclick="goToStep(1)"><div class="trail-num">1</div><div class="trail-label">Identificação</div></div><div class="trail-connector" id="conn-1-2"></div><div class="trail-step" id="trail-2" onclick="goToStep(2)"><div class="trail-num">2</div><div class="trail-label">Materiais</div></div><div class="trail-connector" id="conn-2-3"></div><div class="trail-step" id="trail-3" onclick="goToStep(3)"><div class="trail-num">3</div><div class="trail-label">Veículo</div></div><div class="trail-connector" id="conn-3-4"></div><div class="trail-step" id="trail-4" onclick="goToStep(4)"><div class="trail-num">4</div><div class="trail-label">Resultado</div></div></div><div class="panels"><div class="step-panel active" id="step1"><div class="step-header"><div class="step-avatar">🤖</div><div class="step-bubble"><strong>Olá! Vamos iniciar o carregamento.</strong><p>Informe os dados básicos desta carga.</p></div></div><div class="step-body"><div class="field-row"><div class="field"><label>📅 Data do carregamento</label><input type="date" id="dataCarregamento"></div><div class="field"><label>🧾 Ordem de frete</label><input type="text" id="ordemFrete" placeholder="Ex: OF-6100213456"></div></div><div class="field-row"><div class="field"><label>🚚 Tipo de frete</label><select id="tipoFrete" onchange="atualizarBadgeFrete()"><option value="CIF">CIF — frete por conta do remetente</option><option value="FOB">FOB — frete por conta do destinatário</option></select><span id="badgeFrete" class="badge-frete badge-cif">CIF · Frete pago pelo remetente</span></div></div><div id="avisoStep1"></div><div class="step-actions"><button class="btn-next" onclick="avancarStep(2)">Inserir materiais →</button></div></div></div><div class="step-panel" id="step2"><div class="step-header"><div class="step-avatar">📋</div><div class="step-bubble"><strong>Cole a lista de materiais aqui.</strong><p>Formato esperado: <strong>Código + Quantidade</strong>.</p></div></div><div class="step-body"><textarea id="textoMateriais" placeholder="00011017    20&#10;00011028    20&#10;00010401    100"></textarea><div style="font-size:.75rem;color:var(--ink-soft);margin-top:6px"></div><div id="avisoStep2"></div><div class="step-actions"><button class="btn-back" onclick="goToStep(1)">← Voltar</button><button class="btn-next" onclick="avancarStep(3)">Configurar veículo →</button><button class="btn-clear" onclick="limparTudo()">🗑️ Limpar tudo</button></div></div></div><div class="step-panel" id="step3"><div class="step-header"><div class="step-avatar">🚛</div><div class="step-bubble"><strong>Qual veículo será utilizado?</strong><p>Selecione o tipo e confira as capacidades.</p></div></div><div class="step-body"><div class="vehicle-grid"><div class="vehicle-btn selected" onclick="selecionarVeiculo('carreta',this)"><span class="v-icon">🚛</span><span class="v-name">Carreta</span><span class="v-paletes">28 pal · 30t</span></div><div class="vehicle-btn" onclick="selecionarVeiculo('truck',this)"><span class="v-icon">🚚</span><span class="v-name">Truck</span><span class="v-paletes">14 pal · 15t</span></div><div class="vehicle-btn" onclick="selecionarVeiculo('bitruck',this)"><span class="v-icon">🚛</span><span class="v-name">Bi-Truck</span><span class="v-paletes">22 pal · 22t</span></div><div class="vehicle-btn" onclick="selecionarVeiculo('rodotrem',this)"><span class="v-icon">🛻🚃</span><span class="v-name">Rodo-Trem</span><span class="v-paletes">42 pal · 45t</span></div><div class="vehicle-btn" onclick="selecionarVeiculo('bitrem',this)"><span class="v-icon">🚛🚃</span><span class="v-name">Bi-Trem</span><span class="v-paletes">56 pal · 60t</span></div></div><div class="capacity-grid"><div class="field"><label>Paletes disponíveis</label><input type="number" id="paletesDisp" value="28" min="0"></div><div class="field"><label>Peso máx. (kg)</label><input type="number" id="pesoMax" value="30000" min="0" step="100"></div><div class="field"><label>Comprimento (m)</label><input type="number" id="compVeic" value="14.0" step="0.1"></div></div><div class="capacity-grid capacity-grid-2"><div class="field"><label>Alt. máx. palete (m)</label><input type="number" id="alturaMaxPalete" value="1.50" min="0" step="0.01"></div><div class="field"><label>Altura livre veículo (m)</label><input type="number" id="alturaLivreVeic" value="8.00" min="0" step="0.01"></div></div><div class="capacity-grid"><div class="field"><label>Modo</label><select id="modoCarregamento" onchange="atualizarDescModo();processarCarga();"><option value="casado">Casado</option><option value="bico">Bico</option><option value="solteiro">Solteiro</option><option value="cruzado">Cruzado</option></select></div><div class="field"><label>Largura palete (m)</label><input type="number" id="lPalete" value="1.20" step="0.05"></div><div class="field"><label>Comprimento palete (m)</label><input type="number" id="cPalete" value="1.00" step="0.05"></div></div><div class="mode-info" id="descModo">Casado: Pal. Nec. ÷ 2 × C Palete.</div><div id="avisoStep3"></div><div class="step-actions"><button class="btn-back" onclick="goToStep(2)">← Voltar</button><button class="btn-next" onclick="processarEAvancar()">Calcular carga →</button></div></div></div><div class="step-panel" id="step4"><div class="step-header"><div class="step-avatar">📊</div><div class="step-bubble"><strong id="bubbleResultMsg">Carga processada com sucesso!</strong><p id="bubbleResultSub">Confira o resumo abaixo.</p></div></div><div class="resultado-wrap"><div id="fichaIdentidade" style="display:flex;flex-wrap:wrap;gap:20px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)"></div><div id="alertaCritico"></div><div id="resumoStatus"></div><div id="ocupacaoGauge"></div><div class="kpi-grid" id="resumoContainer"></div><div id="formulaContainer"></div><div id="paleteVisualizacao"></div><div class="table-scroll"><table><thead><tr><th>Grupo</th><th>UM</th><th>Qtde CX</th><th>Cx / Pallet</th><th>Pal. Nec.</th><th>Pal. Máx*</th><th>Alt. Pallet</th><th>Status</th><th>Obs</th></tr></thead><tbody id="corpoResultados"></tbody><tfoot id="rodapeResultados"></tfoot></table></div><div style="font-size:.67rem;color:var(--ink-soft);margin-top:8px" class="no-print">* Pal. Máx. = paletes alocados proporcionalmente para este grupo no veículo selecionado. Grupos com Pal. Nec. > Pal. Máx. têm excedente a granel.</div><div class="step-actions"><button class="btn-back" onclick="goToStep(3)">← Ajustar veículo</button><button class="btn-next" style="background:var(--navy)" onclick="imprimirRelatorio()">🖨️ Imprimir relatório</button><button class="btn-clear" onclick="reiniciarTudo()">↩ Nova carga</button></div></div></div></div><div class="app-footer no-print">Desenvolvido por Carlos Silveira</div></div>
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Cubagem 5005 — Linha Refrigerada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-950:#060E1C;--navy-900:#0A1830;--navy-800:#102443;--navy-700:#163058;
+  --teal-600:#0C9494;--teal-500:#14B8B8;--teal-400:#3FD4CC;--teal-glow:rgba(20,184,184,.22);
+  --ink:#0B1B33;--soft:#5E7088;--faint:#94A3B8;
+  --bg:#EEF3FA;--surface:#FFFFFF;--surface-2:#F6F9FD;--border:#E2E9F3;--border-strong:#CBD8E8;
+  --ok:#0E8052;--ok-bg:#E3F7EC;--ok-line:#BFE8D2;
+  --warn:#9A6400;--warn-bg:#FFF4D9;--warn-line:#F3DE9F;
+  --bad:#B0223A;--bad-bg:#FDE7EA;--bad-line:#F5C2CB;
+  --info:#0B5FA8;--info-bg:#E4F1FC;--info-line:#BFDFF5;
+  --font-display:'Manrope',Inter,sans-serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',Consolas,monospace;
+  --shadow-sm:0 1px 2px rgba(10,24,48,.06);
+  --shadow-md:0 8px 24px -8px rgba(10,24,48,.16),0 2px 6px rgba(10,24,48,.06);
+  --shadow-lg:0 24px 48px -16px rgba(10,24,48,.28);
+  --r-sm:8px;--r-md:14px;--r-lg:20px;--r-xl:26px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);padding:28px 16px 60px;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(900px 500px at 12% -8%,rgba(20,184,184,.10),transparent 60%),
+  radial-gradient(700px 500px at 100% 0%,rgba(11,27,51,.06),transparent 55%);
+  pointer-events:none;z-index:-1}
+.shell{max-width:960px;margin:auto}
+
+/* ===== TOPBAR ===== */
+.topbar{background:linear-gradient(135deg,var(--navy-950) 0%,var(--navy-800) 55%,#0C5C5C 130%);color:#fff;padding:26px 32px;border-radius:var(--r-xl) var(--r-xl) 0 0;display:flex;justify-content:space-between;align-items:center;gap:16px;position:relative;overflow:hidden;box-shadow:var(--shadow-md)}
+.topbar::after{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;background:radial-gradient(circle,var(--teal-glow),transparent 70%);pointer-events:none}
+.topbar-id{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+.topbar-icon{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--teal-500),var(--teal-600));display:flex;align-items:center;justify-content:center;font-size:1.3rem;box-shadow:0 6px 16px rgba(20,184,184,.35),inset 0 1px 0 rgba(255,255,255,.25);flex-shrink:0}
+.topbar h1{font-family:var(--font-display);font-size:1.18rem;font-weight:800;letter-spacing:-.01em}
+.topbar-sub{font-size:.76rem;opacity:.68;margin-top:3px;font-weight:500}
+.btn-print{position:relative;z-index:1;cursor:pointer;border-radius:30px;font-weight:700;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.22);padding:10px 20px;font-size:.84rem;display:flex;align-items:center;gap:7px;transition:background .15s,transform .15s;backdrop-filter:blur(6px)}
+.btn-print:hover{background:rgba(255,255,255,.22);transform:translateY(-1px)}
+
+/* ===== PROGRESS TRAIL ===== */
+.progress-trail{background:var(--surface);border:1px solid var(--border);border-bottom:none;padding:6px 28px;display:flex;align-items:center}
+.trail-step{flex:1;text-align:center;padding:16px 4px;opacity:.4;cursor:pointer;transition:opacity .15s;border-radius:var(--r-sm)}
+.trail-step:hover{opacity:.75}
+.trail-step.active,.trail-step.done{opacity:1}
+.trail-num{display:inline-flex;width:30px;height:30px;border-radius:50%;align-items:center;justify-content:center;background:var(--border);font-weight:800;font-size:.82rem;color:var(--soft);transition:all .2s;font-family:var(--font-display)}
+.trail-step.active .trail-num{background:linear-gradient(135deg,var(--teal-500),var(--teal-600));color:#fff;box-shadow:0 0 0 5px var(--teal-glow)}
+.trail-step.done .trail-num{background:var(--navy-700);color:#fff}
+.trail-step.done .trail-num::after{content:'✓';position:absolute}
+.trail-label{font-size:.66rem;text-transform:uppercase;font-weight:800;color:var(--soft);margin-top:7px;letter-spacing:.04em}
+.trail-step.active .trail-label{color:var(--navy-900)}
+.trail-connector{width:36px;height:2px;background:var(--border);border-radius:2px;transition:background .25s}
+.trail-connector.done{background:var(--teal-500)}
+
+/* ===== PANELS ===== */
+.panels{background:var(--surface);border:1px solid var(--border);border-radius:0 0 var(--r-xl) var(--r-xl);box-shadow:var(--shadow-md)}
+.step-panel{display:none;animation:fadeUp .35s ease}
+.step-panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.step-header{padding:30px 32px 0;display:flex;gap:14px}
+.step-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--navy-900),var(--teal-600));display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;box-shadow:var(--shadow-sm)}
+.step-bubble{background:var(--surface-2);border:1px solid var(--border);border-radius:4px 18px 18px;padding:13px 19px;flex:1}
+.step-bubble strong{font-family:var(--font-display);font-size:.95rem;color:var(--navy-900);display:block;margin-bottom:2px}
+.step-bubble p{font-size:.84rem;color:var(--soft);line-height:1.5}
+.step-body,.resultado-wrap{padding:24px 32px 32px}
+
+/* ===== FORM ELEMENTS ===== */
+.field-row,.capacity-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:14px}
+.capacity-grid{grid-template-columns:repeat(3,1fr)}
+.capacity-grid-2{grid-template-columns:repeat(2,1fr)}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:.72rem;font-weight:800;text-transform:uppercase;color:var(--soft);letter-spacing:.03em}
+input,select,textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--surface-2);color:var(--ink);font-family:var(--font-body);font-size:.92rem;transition:border-color .15s,box-shadow .15s,background .15s}
+input:hover,select:hover,textarea:hover{border-color:var(--border-strong)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal-500);box-shadow:0 0 0 3px var(--teal-glow);background:var(--surface)}
+textarea{min-height:170px;font-family:var(--font-mono);line-height:1.65;font-size:.86rem}
+
+/* ===== VEHICLE SELECTOR ===== */
+.vehicle-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+.vehicle-btn{background:var(--surface-2);border:1.5px solid var(--border);border-radius:var(--r-md);padding:14px 6px 12px;text-align:center;cursor:pointer;transition:all .15s;position:relative}
+.vehicle-btn:hover{border-color:var(--border-strong);transform:translateY(-1px)}
+.vehicle-btn.selected{border-color:var(--teal-500);background:linear-gradient(160deg,#E4FAF8,#EFFBFA);box-shadow:0 0 0 3px var(--teal-glow),var(--shadow-sm)}
+.v-icon{font-size:1.5rem;display:block;margin-bottom:2px}
+.v-name{font-size:.72rem;font-weight:800;text-transform:uppercase;display:block;color:var(--navy-900);letter-spacing:.02em}
+.v-paletes{font-size:.65rem;color:var(--soft);font-weight:500}
+
+.mode-info,.formula-box{background:var(--info-bg);border:1px solid var(--info-line);border-radius:var(--r-sm);padding:11px 16px;font-size:.83rem;color:var(--info);font-weight:500}
+.formula-box{background:var(--surface-2);border-color:var(--border);color:var(--soft)}
+.formula-box strong{color:var(--navy-900)}
+
+/* ===== BUTTONS ===== */
+.step-actions{display:flex;align-items:center;gap:10px;margin-top:24px;flex-wrap:wrap}
+.btn-next{background:linear-gradient(135deg,var(--teal-500),var(--teal-600));color:#fff;border:none;padding:13px 30px;border-radius:30px;font-weight:700;cursor:pointer;font-size:.9rem;box-shadow:0 6px 16px rgba(20,184,184,.3);transition:transform .15s,box-shadow .15s}
+.btn-next:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(20,184,184,.4)}
+.btn-back{background:var(--surface);border:1.5px solid var(--border);color:var(--soft);padding:12px 24px;border-radius:30px;font-weight:700;cursor:pointer;font-size:.9rem;transition:border-color .15s,color .15s}
+.btn-back:hover{border-color:var(--border-strong);color:var(--navy-900)}
+.btn-clear{background:transparent;border:none;color:var(--soft);margin-left:auto;cursor:pointer;font-weight:700;font-size:.85rem;padding:10px;border-radius:var(--r-sm);transition:color .15s}
+.btn-clear:hover{color:var(--bad)}
+
+.alert-box{background:var(--warn-bg);color:var(--warn);padding:10px 15px;border-radius:var(--r-sm);margin-top:9px;font-size:.84rem;font-weight:600;border:1px solid var(--warn-line)}
+
+/* ===== BADGES ===== */
+.badge{display:inline-block;padding:5px 13px;border-radius:30px;font-size:.73rem;font-weight:800;letter-spacing:.01em}
+.badge-ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-line)}
+.badge-warn{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-line)}
+.badge-danger{background:var(--bad-bg);color:var(--bad);border:1px solid var(--bad-line)}
+.badge-frete{display:inline-flex;align-items:center;padding:7px 16px;border-radius:30px;font-size:.78rem;font-weight:800;margin-top:9px;width:fit-content}
+.badge-cif{background:#E9E6FF;color:#4A3FCE;border:1px solid #D2CCFA}
+.badge-fob{background:#FFE9D9;color:#A0480F;border:1px solid #F6CFAE}
+
+/* ===== STATUS CHIPS ===== */
+.status-painel{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:20px}
+.status-chip{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:13px 12px;text-align:center;border-top:3px solid var(--border);box-shadow:var(--shadow-sm)}
+.chip-ok{border-top-color:var(--ok)}
+.chip-warn{border-top-color:var(--warn)}
+.chip-danger{border-top-color:var(--bad)}
+.chip-label{display:block;font-size:.64rem;color:var(--soft);font-weight:800;text-transform:uppercase;margin-bottom:7px;letter-spacing:.03em}
+
+/* ===== GAUGE ===== */
+.gauge-wrap{background:linear-gradient(160deg,var(--surface-2),var(--surface));border:1px solid var(--border);border-radius:var(--r-md);padding:16px 20px;margin-bottom:20px}
+.gauge-header{display:flex;justify-content:space-between;align-items:baseline;font-weight:800;color:var(--soft);font-size:.74rem;text-transform:uppercase;margin-bottom:10px;letter-spacing:.03em}
+.gauge-header strong{color:var(--navy-900);font-size:1.15rem;font-family:var(--font-display)}
+.gauge-track{height:14px;background:var(--border);border-radius:30px;overflow:hidden;box-shadow:inset 0 1px 3px rgba(10,24,48,.12)}
+.gauge-fill{height:100%;border-radius:30px;transition:width .4s ease;background-size:200% 100%}
+
+/* ===== KPI GRID ===== */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--teal-500);border-radius:var(--r-md);padding:14px 10px;text-align:center;box-shadow:var(--shadow-sm);transition:transform .15s}
+.kpi-card:hover{transform:translateY(-2px)}
+.kpi-alert{background:var(--bad-bg);border-top-color:var(--bad);border-color:var(--bad-line)}
+.kpi-val{font-size:1.4rem;font-weight:800;font-family:var(--font-display);color:var(--navy-900);letter-spacing:-.01em}
+.danger{color:var(--bad)}
+.kpi-label{font-size:.62rem;text-transform:uppercase;color:var(--soft);font-weight:800;letter-spacing:.03em;margin-top:2px}
+
+/* ===== PALLET VIZ ===== */
+.pallet-viz-wrap{background:linear-gradient(160deg,#F4F8FF,#EEF5FD);border:1px solid var(--border-strong);border-radius:var(--r-lg);padding:20px 22px;margin-bottom:20px}
+.pallet-viz-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.pallet-viz-title{font-size:.74rem;font-weight:800;text-transform:uppercase;color:var(--soft);letter-spacing:.03em}
+.pallet-viz-badge{background:var(--navy-900);color:#fff;font-size:.7rem;font-weight:800;padding:5px 14px;border-radius:20px}
+.pallet-svg-container{overflow-x:auto}
+
+/* ===== TABLE ===== */
+.table-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--shadow-sm)}
+table{width:100%;border-collapse:collapse;min-width:760px;font-size:.82rem}
+th{background:var(--navy-900);color:#fff;padding:12px 10px;text-transform:uppercase;font-size:.68rem;font-weight:800;letter-spacing:.04em;white-space:nowrap}
+th:first-child{border-radius:var(--r-md) 0 0 0}
+th:last-child{border-radius:0 var(--r-md) 0 0}
+td{padding:10px 9px;border-bottom:1px solid var(--border);text-align:center;background:var(--surface);font-family:var(--font-mono);font-size:.81rem}
+tbody tr{transition:background .12s}
+tbody tr:hover td{background:var(--surface-2)}
+.totals-row td{background:linear-gradient(160deg,#E4EFFB,#DCEAF8)!important;font-weight:800;font-family:var(--font-display)}
+.row-warn td{background:#FFFAEC!important}
+.row-warn:hover td{background:#FFF6DD!important}
+.row-lowheight td,.row-danger td{background:#FDF0F1!important}
+.row-danger:hover td,.row-lowheight:hover td{background:#FCE6E8!important}
+.row-edited td{background:#F0FAFA!important}
+.status-ok{color:var(--ok);font-weight:800;font-family:var(--font-body)}
+.status-excede{color:var(--bad);font-weight:800;font-family:var(--font-body)}
+td:first-child{text-align:left;font-family:var(--font-body)}
+td:last-child{text-align:left;font-family:var(--font-body);font-size:.78rem;color:var(--soft)}
+
+/* ===== EDITABLE PAL NEC CELL ===== */
+.palnec-cell{display:inline-flex;align-items:center;gap:5px;background:var(--surface-2);border:1.5px solid var(--border);border-radius:8px;padding:2px 2px 2px 8px;transition:border-color .15s,box-shadow .15s}
+.palnec-cell:hover{border-color:var(--border-strong)}
+.palnec-cell.is-edited{border-color:var(--teal-500);background:#EAFBFA}
+.palnec-input{width:48px;border:none!important;background:transparent!important;padding:6px 2px!important;text-align:center;font-family:var(--font-mono)!important;font-weight:700;font-size:.85rem!important;color:var(--navy-900)}
+.palnec-input:focus{box-shadow:none!important;outline:none}
+.palnec-reset{cursor:pointer;background:var(--border);color:var(--soft);border:none;width:20px;height:20px;border-radius:6px;font-size:.66rem;line-height:1;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s,color .15s}
+.palnec-reset:hover{background:var(--teal-500);color:#fff}
+.palnec-reset[hidden]{display:none}
+.edited-tag{display:inline-block;margin-left:4px;padding:2px 7px;border-radius:999px;background:var(--info-bg);border:1px solid var(--info-line);color:var(--info);font-size:.6rem;font-weight:900;text-transform:uppercase;letter-spacing:.03em;vertical-align:middle}
+
+.alerta-critico{background:linear-gradient(135deg,var(--bad-bg),#FCEEF0);border:1px solid var(--bad-line);color:var(--bad);padding:13px 18px;border-radius:var(--r-md);margin-bottom:18px;font-size:.85rem;font-weight:700;display:flex;gap:10px;align-items:flex-start}
+.altura-baixa-tag{display:inline-block;margin-left:5px;padding:2px 7px;border-radius:999px;background:var(--bad-bg);border:1px solid var(--bad-line);color:var(--bad);font-size:.6rem;font-weight:900;text-transform:uppercase;font-family:var(--font-body)}
+
+.ficha-identidade{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.ficha-identidade div b{display:block;font-size:.64rem;text-transform:uppercase;color:var(--soft);font-weight:800;letter-spacing:.03em;margin-bottom:3px}
+.ficha-identidade div{font-family:var(--font-display);font-weight:700;color:var(--navy-900);font-size:.92rem}
+
+.app-footer{text-align:center;margin-top:18px;font-size:.72rem;color:var(--faint);font-weight:500}
+.print-header{display:none}
+.edit-hint{display:flex;align-items:center;gap:7px;font-size:.73rem;color:var(--soft);background:var(--info-bg);border:1px solid var(--info-line);border-radius:var(--r-sm);padding:9px 14px;margin-bottom:14px}
+
+@media(max-width:760px){
+  .vehicle-grid{grid-template-columns:repeat(3,1fr)}
+  .capacity-grid,.status-painel,.kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .topbar{padding:20px 20px;border-radius:var(--r-lg) var(--r-lg) 0 0}
+  .step-header,.step-body,.resultado-wrap{padding-left:20px;padding-right:20px}
+}
+@media print{
+  @page{size:A4;margin:12mm}
+  body{background:#fff;padding:0}body::before{display:none}
+  .topbar,.progress-trail,.step-actions,.step-header,.no-print{display:none!important}
+  .panels{border:none;box-shadow:none}
+  .step-panel{display:block!important}
+  #step1,#step2,#step3{display:none!important}
+  .resultado-wrap{padding:0}
+  .print-header{display:block!important}
+  .palnec-cell{border:none;background:none!important}
+  .palnec-reset{display:none!important}
+  th,.badge,.kpi-card,.status-chip,.gauge-fill,.alerta-critico,.formula-box,.pallet-viz-wrap{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style></head><body><div class="shell">
+
+<div class="topbar no-print">
+  <div class="topbar-id">
+    <div class="topbar-icon">🚛</div>
+    <div><h1>Pré-Cubagem — Linha Refrigerada</h1><p class="topbar-sub">Calculadora de Cubagem e Paletização · Controle de Carregamento</p></div>
+  </div>
+  <button class="btn-print" onclick="imprimirRelatorio()">🖨️ Imprimir</button>
+</div>
+
+<div class="print-header" style="background:var(--navy-900);color:white;padding:18px 26px;border-radius:0"><h1 style="font-size:1.1rem;font-family:var(--font-display)">🚛 Pré-Cubagem — Relatório de Cubagem e Paletização</h1><div style="font-size:.75rem;opacity:.75;margin-top:4px" id="dataImpressao"></div></div>
+
+<div class="progress-trail no-print">
+  <div class="trail-step active" id="trail-1" onclick="goToStep(1)"><div class="trail-num">1</div><div class="trail-label">Identificação</div></div>
+  <div class="trail-connector" id="conn-1-2"></div>
+  <div class="trail-step" id="trail-2" onclick="goToStep(2)"><div class="trail-num">2</div><div class="trail-label">Materiais</div></div>
+  <div class="trail-connector" id="conn-2-3"></div>
+  <div class="trail-step" id="trail-3" onclick="goToStep(3)"><div class="trail-num">3</div><div class="trail-label">Veículo</div></div>
+  <div class="trail-connector" id="conn-3-4"></div>
+  <div class="trail-step" id="trail-4" onclick="goToStep(4)"><div class="trail-num">4</div><div class="trail-label">Resultado</div></div>
+</div>
+
+<div class="panels">
+
+  <div class="step-panel active" id="step1">
+    <div class="step-header"><div class="step-avatar">🤖</div><div class="step-bubble"><strong>Olá! Vamos iniciar o carregamento.</strong><p>Informe os dados básicos desta carga.</p></div></div>
+    <div class="step-body">
+      <div class="field-row">
+        <div class="field"><label>📅 Data do carregamento</label><input type="date" id="dataCarregamento"></div>
+        <div class="field"><label>🧾 Ordem de frete</label><input type="text" id="ordemFrete" placeholder="Ex: OF-6100213456"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>🚚 Tipo de frete</label>
+          <select id="tipoFrete" onchange="atualizarBadgeFrete()"><option value="CIF">CIF — frete por conta do remetente</option><option value="FOB">FOB — frete por conta do destinatário</option></select>
+          <span id="badgeFrete" class="badge-frete badge-cif">CIF · Frete pago pelo remetente</span>
+        </div>
+      </div>
+      <div id="avisoStep1"></div>
+      <div class="step-actions"><button class="btn-next" onclick="avancarStep(2)">Inserir materiais →</button></div>
+    </div>
+  </div>
+
+  <div class="step-panel" id="step2">
+    <div class="step-header"><div class="step-avatar">📋</div><div class="step-bubble"><strong>Cole a lista de materiais aqui.</strong><p>Formato esperado: <strong>Código + Quantidade</strong>.</p></div></div>
+    <div class="step-body">
+      <textarea id="textoMateriais" placeholder="00011017    20&#10;00011028    20&#10;00010401    100"></textarea>
+      <div id="avisoStep2"></div>
+      <div class="step-actions">
+        <button class="btn-back" onclick="goToStep(1)">← Voltar</button>
+        <button class="btn-next" onclick="avancarStep(3)">Configurar veículo →</button>
+        <button class="btn-clear" onclick="limparTudo()">🗑️ Limpar tudo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-panel" id="step3">
+    <div class="step-header"><div class="step-avatar">🚛</div><div class="step-bubble"><strong>Qual veículo será utilizado?</strong><p>Selecione o tipo e confira as capacidades.</p></div></div>
+    <div class="step-body">
+      <div class="vehicle-grid">
+        <div class="vehicle-btn selected" onclick="selecionarVeiculo('carreta',this)"><span class="v-icon">🚛</span><span class="v-name">Carreta</span><span class="v-paletes">28 pal · 30t</span></div>
+        <div class="vehicle-btn" onclick="selecionarVeiculo('truck',this)"><span class="v-icon">🚚</span><span class="v-name">Truck</span><span class="v-paletes">14 pal · 15t</span></div>
+        <div class="vehicle-btn" onclick="selecionarVeiculo('bitruck',this)"><span class="v-icon">🚛</span><span class="v-name">Bi-Truck</span><span class="v-paletes">22 pal · 22t</span></div>
+        <div class="vehicle-btn" onclick="selecionarVeiculo('rodotrem',this)"><span class="v-icon">🛻🚃</span><span class="v-name">Rodo-Trem</span><span class="v-paletes">42 pal · 45t</span></div>
+        <div class="vehicle-btn" onclick="selecionarVeiculo('bitrem',this)"><span class="v-icon">🚛🚃</span><span class="v-name">Bi-Trem</span><span class="v-paletes">56 pal · 60t</span></div>
+      </div>
+      <div class="capacity-grid">
+        <div class="field"><label>Paletes disponíveis</label><input type="number" id="paletesDisp" value="28" min="0"></div>
+        <div class="field"><label>Peso máx. (kg)</label><input type="number" id="pesoMax" value="30000" min="0" step="100"></div>
+        <div class="field"><label>Comprimento (m)</label><input type="number" id="compVeic" value="14.0" step="0.1"></div>
+      </div>
+      <div class="capacity-grid capacity-grid-2">
+        <div class="field"><label>Alt. máx. palete (m)</label><input type="number" id="alturaMaxPalete" value="1.50" min="0" step="0.01"></div>
+        <div class="field"><label>Altura livre veículo (m)</label><input type="number" id="alturaLivreVeic" value="8.00" min="0" step="0.01"></div>
+      </div>
+      <div class="capacity-grid">
+        <div class="field"><label>Modo</label><select id="modoCarregamento" onchange="atualizarDescModo();processarCarga();"><option value="casado">Casado</option><option value="bico">Bico</option><option value="solteiro">Solteiro</option><option value="cruzado">Cruzado</option></select></div>
+        <div class="field"><label>Largura palete (m)</label><input type="number" id="lPalete" value="1.20" step="0.05"></div>
+        <div class="field"><label>Comprimento palete (m)</label><input type="number" id="cPalete" value="1.00" step="0.05"></div>
+      </div>
+      <div class="mode-info" id="descModo">Casado: Pal. Nec. ÷ 2 × C Palete.</div>
+      <div id="avisoStep3"></div>
+      <div class="step-actions"><button class="btn-back" onclick="goToStep(2)">← Voltar</button><button class="btn-next" onclick="processarEAvancar()">Calcular carga →</button></div>
+    </div>
+  </div>
+
+  <div class="step-panel" id="step4">
+    <div class="step-header"><div class="step-avatar">📊</div><div class="step-bubble"><strong id="bubbleResultMsg">Carga processada com sucesso!</strong><p id="bubbleResultSub">Confira o resumo abaixo.</p></div></div>
+    <div class="resultado-wrap">
+      <div id="fichaIdentidade" class="ficha-identidade"></div>
+      <div id="alertaCritico"></div>
+      <div id="resumoStatus"></div>
+      <div id="ocupacaoGauge"></div>
+      <div class="kpi-grid" id="resumoContainer"></div>
+      <div id="formulaContainer"></div>
+      <div id="paleteVisualizacao"></div>
+      <div class="edit-hint no-print">✏️ <span>A coluna <strong>Pal. Nec.</strong> é editável — ajuste manualmente e a ocupação do veículo recalcula em tempo real. Use o botão ↺ para restaurar o valor calculado.</span></div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Grupo</th><th>UM</th><th>Qtde CX</th><th>Cx / Pallet</th><th>Pal. Nec.</th><th>Pal. Máx*</th><th>Alt. Pallet</th><th>Status</th><th>Obs</th></tr></thead>
+          <tbody id="corpoResultados"></tbody>
+          <tfoot id="rodapeResultados"></tfoot>
+        </table>
+      </div>
+      <div style="font-size:.67rem;color:var(--faint);margin-top:10px" class="no-print">* Pal. Máx. = paletes alocados proporcionalmente para este grupo no veículo selecionado. Grupos com Pal. Nec. > Pal. Máx. têm excedente a granel.</div>
+      <div class="step-actions">
+        <button class="btn-back" onclick="goToStep(3)">← Ajustar veículo</button>
+        <button class="btn-next" style="background:linear-gradient(135deg,var(--navy-800),var(--navy-900))" onclick="imprimirRelatorio()">🖨️ Imprimir relatório</button>
+        <button class="btn-clear" onclick="reiniciarTudo()">↩ Nova carga</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="app-footer no-print">Desenvolvido por Carlos Silveira</div>
+</div>
 <script>
 const produtos=[{"codigo": 10401, "UM": "CX", "PLcx": 8, "PBcx": 9.2, "cxPallet": 45, "palMax": 63, "modelo": "MANT", "altPallet": 130, "cxLastro": 9, "Acm": 26}, {"codigo": 10402, "UM": "CX", "PLcx": 10, "PBcx": 11.04, "cxPallet": 45, "palMax": 63, "modelo": "MANT", "altPallet": 130, "cxLastro": 9, "Acm": 26}, {"codigo": 10405, "UM": "BD", "PLcx": 10, "PBcx": 10.465, "cxPallet": 48, "palMax": 48, "modelo": "BALD", "altPallet": 115, "cxLastro": 12, "Acm": 23}, {"codigo": 10417, "UM": "CX", "PLcx": 8, "PBcx": 8.88, "cxPallet": 63, "palMax": 63, "modelo": "MANT", "altPallet": 130, "cxLastro": 9, "Acm": 26}, {"codigo": 10418, "UM": "CX", "PLcx": 10, "PBcx": 11.04, "cxPallet": 63, "palMax": 63, "modelo": "MANT", "altPallet": 130, "cxLastro": 9, "Acm": 26}, {"codigo": 10419, "UM": "CX", "PLcx": 8, "PBcx": 9.2, "cxPallet": 63, "palMax": 63, "modelo": "MANT", "altPallet": 130, "cxLastro": 9, "Acm": 26}, {"codigo": 10421, "UM": "CX", "PLcx": 4.8, "PBcx": 6.24, "cxPallet": 64, "palMax": 72, "modelo": "REQU", "altPallet": 96, "cxLastro": 8, "Acm": 12}, {"codigo": 10601, "UM": "KG", "PLcx": 10.88, "PBcx": 11.3696, "cxPallet": 55, "palMax": 66, "modelo": "F3", "altPallet": 105, "cxLastro": 11, "Acm": 21}, {"codigo": 10602, "UM": "KG", "PLcx": 9.6, "PBcx": 10.5216, "cxPallet": 55, "palMax": 66, "modelo": "F3", "altPallet": 105, "cxLastro": 11, "Acm": 21}, {"codigo": 10605, "UM": "KG", "PLcx": 12, "PBcx": 12.36, "cxPallet": 68, "palMax": 68, "modelo": "F4", "altPallet": 92, "cxLastro": 17, "Acm": 23}, {"codigo": 10606, "UM": "CX", "PLcx": 5.4, "PBcx": 6.156, "cxPallet": 65, "palMax": 91, "modelo": "FAT 150", "altPallet": 110, "cxLastro": 13, "Acm": 22}, {"codigo": 10901, "UM": "KG", "PLcx": 10.32, "PBcx": 10.87728, "cxPallet": 48, "palMax": 56, "modelo": "CILI", "altPallet": 114, "cxLastro": 8, "Acm": 19}, {"codigo": 10903, "UM": "CX", "PLcx": 4.8, "PBcx": 5.472, "cxPallet": 84, "palMax": 84, "modelo": "PEDA", "altPallet": 99, "cxLastro": 14, "Acm": 16.5}, {"codigo": 11001, "UM": "KG", "PLcx": 10.32, "PBcx": 10.81536, "cxPallet": 55, "palMax": 66, "modelo": "F3", "altPallet": 105, "cxLastro": 11, "Acm": 21}, {"codigo": 11003, "UM": "KG", "PLcx": 12, "PBcx": 12.372, "cxPallet": 75, "palMax": 75, "modelo": "F2", "altPallet": 100, "cxLastro": 15, "Acm": 20}, {"codigo": 11005, "UM": "KG", "PLcx": 24, "PBcx": 24.768, "cxPallet": 40, "palMax": 40, "modelo": "F4", "altPallet": 115, "cxLastro": 8, "Acm": 23}, {"codigo": 11010, "UM": "KG", "PLcx": 10.08, "PBcx": 10.60416, "cxPallet": 55, "palMax": 66, "modelo": "F3", "altPallet": 105, "cxLastro": 11, "Acm": 21}, {"codigo": 11013, "UM": "KG", "PLcx": 8.4, "PBcx": 8.988, "cxPallet": 55, "palMax": 66, "modelo": "F3", "altPallet": 105, "cxLastro": 11, "Acm": 21}, {"codigo": 11014, "UM": "KG", "PLcx": 9.6, "PBcx": 10.128, "cxPallet": 55, "palMax": 66, "modelo": "F3", "altPallet": 105, "cxLastro": 11, "Acm": 21}, {"codigo": 11017, "UM": "CX", "PLcx": 4.8, "PBcx": 5.448, "cxPallet": 84, "palMax": 84, "modelo": "PEDA", "altPallet": 99, "cxLastro": 14, "Acm": 16.5}, {"codigo": 11023, "UM": "CX", "PLcx": 12, "PBcx": 12.96, "cxPallet": 40, "palMax": 48, "modelo": "FAT 500", "altPallet": 129, "cxLastro": 8, "Acm": 21.5}, {"codigo": 11028, "UM": "CX", "PLcx": 5.4, "PBcx": 6.156, "cxPallet": 65, "palMax": 91, "modelo": "FAT 150", "altPallet": 110, "cxLastro": 13, "Acm": 22}, {"codigo": 11030, "UM": "CX", "PLcx": 6.3, "PBcx": 6.741, "cxPallet": 65, "palMax": 91, "modelo": "FAT 150", "altPallet": 110, "cxLastro": 13, "Acm": 22}, {"codigo": 11101, "UM": "KG", "PLcx": 10, "PBcx": 10.25, "cxPallet": 64, "palMax": 64, "modelo": "F5", "altPallet": 102, "cxLastro": 16, "Acm": 25.5}, {"codigo": 11103, "UM": "KG", "PLcx": 7.0, "PBcx": 7.6536, "cxPallet": 75, "palMax": 75, "modelo": "F2", "altPallet": 100, "cxLastro": 15, "Acm": 20}, {"codigo": 11118, "UM": "CX", "PLcx": 6.48, "PBcx": 7.416, "cxPallet": 48, "palMax": 56, "modelo": "CILI", "altPallet": 114, "cxLastro": 8, "Acm": 19}, {"codigo": 11119, "UM": "KG", "PLcx": 5.4, "PBcx": 5.5944, "cxPallet": 150, "palMax": 150, "modelo": "PARM", "altPallet": 132, "cxLastro": 6, "Acm": 22}, {"codigo": 11201, "UM": "KG", "PLcx": 10.8, "PBcx": 11.3292, "cxPallet": 55, "palMax": 66, "modelo": "F3", "altPallet": 105, "cxLastro": 11, "Acm": 21}, {"codigo": 11204, "UM": "KG", "PLcx": 18, "PBcx": 18.504, "cxPallet": 55, "palMax": 55, "modelo": "F3", "altPallet": 105, "cxLastro": 11, "Acm": 21}, {"codigo": 11216, "UM": "CX", "PLcx": 4.8, "PBcx": 5.448, "cxPallet": 84, "palMax": 84, "modelo": "PEDA", "altPallet": 99, "cxLastro": 14, "Acm": 16.5}, {"codigo": 11226, "UM": "CX", "PLcx": 5.4, "PBcx": 6.156, "cxPallet": 65, "palMax": 91, "modelo": "FAT 150", "altPallet": 110, "cxLastro": 13, "Acm": 22}, {"codigo": 11503, "UM": "KG", "PLcx": 6.3, "PBcx": 6.6654, "cxPallet": 75, "palMax": 90, "modelo": "F2", "altPallet": 100, "cxLastro": 15, "Acm": 20}, {"codigo": 11509, "UM": "CX", "PLcx": 4.8, "PBcx": 5.472, "cxPallet": 84, "palMax": 84, "modelo": "PEDA", "altPallet": 99, "cxLastro": 14, "Acm": 16.5}, {"codigo": 11510, "UM": "KG", "PLcx": 5, "PBcx": 6.7, "cxPallet": 48, "palMax": 56, "modelo": "CILI", "altPallet": 114, "cxLastro": 8, "Acm": 19}, {"codigo": 11519, "UM": "KG", "PLcx": 12, "PBcx": 14.196, "cxPallet": 42, "palMax": 42, "modelo": "LATA", "altPallet": 150, "cxLastro": 7, "Acm": 25}, {"codigo": 11520, "UM": "CX", "PLcx": 5.4, "PBcx": 6.156, "cxPallet": 65, "palMax": 91, "modelo": "FAT 150", "altPallet": 110, "cxLastro": 13, "Acm": 22}, {"codigo": 11607, "UM": "CX", "PLcx": 10.8, "PBcx": 11.544, "cxPallet": 64, "palMax": 64, "modelo": "REQU", "altPallet": 96, "cxLastro": 8, "Acm": 12}, {"codigo": 11608, "UM": "CX", "PLcx": 9.6, "PBcx": 10.488, "cxPallet": 64, "palMax": 64, "modelo": "REQU", "altPallet": 96, "cxLastro": 8, "Acm": 12}, {"codigo": 11609, "UM": "CX", "PLcx": 9.6, "PBcx": 10.488, "cxPallet": 64, "palMax": 64, "modelo": "REQU", "altPallet": 96, "cxLastro": 8, "Acm": 12}, {"codigo": 11610, "UM": "CX", "PLcx": 9, "PBcx": 9.708, "cxPallet": 64, "palMax": 64, "modelo": "REQU", "altPallet": 96, "cxLastro": 8, "Acm": 12}];
 const grupos=["MANT","BALD","F2","F3","F4","F5","FAT 150","FAT 500","CILI","PEDA","REQU","LATA","PARM"];
 const presets={carreta:{paletes:28,comp:14.0,pesoMax:30000,alturaLivre:8.00,alturaMaxPalete:1.50},truck:{paletes:14,comp:7.0,pesoMax:15000,alturaLivre:8.00,alturaMaxPalete:1.50},bitruck:{paletes:22,comp:12.0,pesoMax:22000,alturaLivre:8.00,alturaMaxPalete:1.50},rodotrem:{paletes:42,comp:22.0,pesoMax:45000,alturaLivre:8.00,alturaMaxPalete:1.50},bitrem:{paletes:56,comp:28.0,pesoMax:60000,alturaLivre:8.00,alturaMaxPalete:1.50}};
 let currentStep=1;const totalSteps=4,LIMITE_ALTURA_BAIXA_M=0.50,LIMITE_ALTURA_ZERAR_M=0.25;
+// overridesPalNec: ajustes manuais do usuário na coluna Pal. Nec., por grupo. Persistem entre recálculos
+// automáticos até que o usuário restaure (↺) ou limpe a carga.
+let overridesPalNec={};
+let ultimoMapaCalculado=null;
 function aviso(id,msg){let el=document.getElementById(id);if(el)el.innerHTML=msg?'<div class="alert-box">⚠️ '+msg+'</div>':''}
 function goToStep(n){if(n<1||n>totalSteps)return;if(n>currentStep){for(let i=currentStep;i<n;i++){if(!validarStep(i))return}if(n===4&&!processarCarga())return}activateStep(n)}
 function avancarStep(n){if(!validarStep(currentStep))return;activateStep(n)}
@@ -19,7 +335,7 @@ function atualizarBadgeFrete(){let tipo=document.getElementById('tipoFrete').val
 function getProduto(c){return produtos.find(p=>p.codigo===c)}
 function parseNumeroBR(str){let s=String(str||'').trim().replace(/\s+/g,'');if(!s)return NaN;if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');else{let p=s.split('.');if(p.length>2||(p.length===2&&p[1].length===3))s=s.replace(/\./g,'')}return parseFloat(s)}
 function parseMateriais(txt){let items=[],codigosNaoEncontrados=new Set();for(let line of txt.split('\n')){line=line.trim();if(!line)continue;let parts=line.split('\t').map(s=>s.trim()).filter(Boolean);if(parts.length<2)parts=line.split(/\s{2,}/).map(s=>s.trim()).filter(Boolean);if(parts.length<2)parts=line.split(/\s+/).map(s=>s.trim()).filter(Boolean);if(parts.length<2)continue;let numCode=parseInt(parts[0],10),qty=parseNumeroBR(parts.at(-1));if(isNaN(numCode)||isNaN(qty)||qty<=0)continue;let prod=getProduto(numCode);if(!prod){codigosNaoEncontrados.add(numCode);continue}items.push({codigo:numCode,quantidade:qty,prod})}return{items,codigosNaoEncontrados}}
-function badge(s){return s.includes('✅')?'badge-ok':s.includes('⚠️')?'badge-warn':s.includes('❌')?'badge-danger':'badge-info'}function chip(s){return s.includes('✅')?'chip-ok':s.includes('⚠️')?'chip-warn':s.includes('❌')?'chip-danger':''}function linha(s){return s.includes('⚠️')?'row-warn':s.includes('❌')?'row-danger':''}function corGauge(p){return p>90?'var(--bad)':p>=70?'var(--ok)':'var(--teal)'}function alturaCamadas(prod,qtd){if(!prod||qtd<=0)return 0;let cx=+prod.cxLastro||0,a=+prod.Acm||0,cheio=+prod.altPallet||0;if(cx<=0||a<=0)return cheio;let calc=Math.ceil(qtd/cx)*a;return cheio>0?Math.min(calc,cheio):calc}function formatKg(v){return Math.round(v).toLocaleString('pt-BR').replace(/,/g,'.')}
+function badge(s){return s.includes('✅')?'badge-ok':s.includes('⚠️')?'badge-warn':s.includes('❌')?'badge-danger':'badge-info'}function chip(s){return s.includes('✅')?'chip-ok':s.includes('⚠️')?'chip-warn':s.includes('❌')?'chip-danger':''}function linha(s){return s.includes('⚠️')?'row-warn':s.includes('❌')?'row-danger':''}function corGauge(p){return p>90?'var(--bad)':p>=70?'var(--ok)':'var(--teal-500)'}function alturaCamadas(prod,qtd){if(!prod||qtd<=0)return 0;let cx=+prod.cxLastro||0,a=+prod.Acm||0,cheio=+prod.altPallet||0;if(cx<=0||a<=0)return cheio;let calc=Math.ceil(qtd/cx)*a;return cheio>0?Math.min(calc,cheio):calc}function formatKg(v){return Math.round(v).toLocaleString('pt-BR').replace(/,/g,'.')}
 function capacidadeFisicaPaletes(modo,comp,cPal,lPal,palDisp){let porCol=2,passo=cPal;if(modo==='solteiro'){porCol=1;passo=cPal}else if(modo==='bico'){porCol=2;passo=lPal}else{porCol=2;passo=cPal}let col=Math.floor((+comp||0)/(+passo||1));return Math.max(0,Math.min(+palDisp||0,col*porCol))}
 function gerarSVGPaletes(total,modo,palDisp,comp,cPal,lPal){if(total<=0)return'';let insideCap=capacidadeFisicaPaletes(modo,comp,cPal,lPal,palDisp);let insideFilled=Math.min(total,insideCap),overflow=Math.max(0,total-insideCap);const bodyX=82,bodyY=35,bodyH=88,innerPad=7,gap=5,overGap=16;let slotW=22,cols=1,rects='',overflowRects='';function addSlot(x,y,w,h,num,state,horiz){let fill=state==='over'?'#FBDFE1':state==='filled'?(horiz?'#C8E6C9':'#C7EDF0'):'#F3F7FD';let stroke=state==='over'?'#9F2330':state==='filled'?(horiz?'#2E7D32':'#0B7C7C'):'#9EB0C8';let op=state==='empty'?.55:1;return `<g><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${fill}" stroke="${stroke}" stroke-width="${state==='empty'?1:1.8}" opacity="${op}"/>${state==='empty'?'':`<text x="${x+w/2}" y="${y+h/2}" font-size="9" font-weight="800" fill="${stroke}" text-anchor="middle" dominant-baseline="central">${num}</text>`}</g>`}
 function drawRange(count,filledCount,startX,startNum,stateOverflow){let out='',sW=slotW;if(modo==='solteiro'){sW=22;let h=40,y=bodyY+(bodyH-h)/2;for(let i=0;i<count;i++){let st=stateOverflow?'over':(i<filledCount?'filled':'empty');out+=addSlot(startX+i*(sW+gap),y,sW,h,startNum+i,st,false)}}else if(modo==='bico'){sW=34;let h=32;for(let i=0;i<count;i++){let c=Math.floor(i/2),r=i%2;let st=stateOverflow?'over':(i<filledCount?'filled':'empty');out+=addSlot(startX+c*(sW+gap),bodyY+8+r*(h+7),sW,h,startNum+i,st,true)}}else if(modo==='cruzado'){let vW=22,vH=36,hW=36,hH=25,colW=40;sW=colW;for(let i=0;i<count;i++){let c=Math.floor(i/2),top=i%2===0,x=startX+c*(colW+gap);let st=stateOverflow?'over':(i<filledCount?'filled':'empty');out+=top?addSlot(x,bodyY+7,vW,vH,startNum+i,st,false):addSlot(x,bodyY+bodyH-hH-7,hW,hH,startNum+i,st,true)}}else{sW=22;let h=36;for(let i=0;i<count;i++){let c=Math.floor(i/2),r=i%2;let st=stateOverflow?'over':(i<filledCount?'filled':'empty');out+=addSlot(startX+c*(sW+gap),bodyY+7+r*(h+5),sW,h,startNum+i,st,false)}}slotW=sW;return out}
@@ -42,7 +358,7 @@ function calcularTudo(materiais,codigosNaoEncontrados){
     qtdeCX:0,qtdeOriginalKg:0,plcxRef:0,pesoBruto:0,
     cxPallet:0,alturaCadastro:0,itensAltura:[],
     alertaAlturaBaixa:false,UM:'',
-    paletesNecReal:0,   // paletes reais necessários para a carga (NÃO muda com veículo)
+    paletesNecReal:0,   // paletes reais necessários para a carga (calculado, NÃO muda com veículo)
     paletesMax:0,       // paletes alocados proporcionalmente no veículo
     cxFora:0,altura:0,status:'',obs:''
   });
@@ -93,19 +409,26 @@ function calcularTudo(materiais,codigosNaoEncontrados){
   grupos.forEach(nome=>{
     let g=map[nome];
     palMaxTot+=g.paletesMax;
-    g.cxFora=Math.max(0,g.qtdeCX-g.paletesMax*g.cxPallet);
-    cxForaTot+=g.cxFora;
 
-    if(!g.qtdeCX){g.status='—';return}
+    if(!g.qtdeCX){g.status='—';g.paletesNecExibicao=0;return}
 
     let altM=g.altura/100;
     // Zerar Pal. Nec. EXIBIÇÃO apenas quando altura < 0.25m (regra de negócio)
     let zerarAltura=altM>0&&altM<LIMITE_ALTURA_ZERAR_M;
-    let exAlt=(altMax>0&&altM>altMax)||(altLivre>0&&altM>altLivre);
-    let exPal=g.paletesNecReal>g.paletesMax;
 
-    // Pal. Nec. exibição na tabela = paletesNecReal, zerado apenas se altura muito baixa
-    g.paletesNecExibicao=zerarAltura?0:g.paletesNecReal;
+    // Pal. Nec. exibição na tabela = paletesNecReal (calculado), zerado apenas se altura muito baixa.
+    // Se o usuário tiver um override manual para este grupo, ele prevalece sobre o cálculo.
+    let valorCalculado=zerarAltura?0:g.paletesNecReal;
+    g.paletesNecCalculado=valorCalculado;
+    let temOverride=overridesPalNec.hasOwnProperty(nome);
+    g.paletesNecExibicao=temOverride?overridesPalNec[nome]:valorCalculado;
+    g.editado=temOverride&&overridesPalNec[nome]!==valorCalculado;
+
+    g.cxFora=Math.max(0,g.qtdeCX-g.paletesMax*g.cxPallet);
+    cxForaTot+=g.cxFora;
+
+    let exAlt=(altMax>0&&altM>altMax)||(altLivre>0&&altM>altLivre);
+    let exPal=g.paletesNecExibicao>g.paletesMax;
 
     if(exAlt){
       g.status='⚠️ Atenção';excede=true;
@@ -121,15 +444,17 @@ function calcularTudo(materiais,codigosNaoEncontrados){
       g.obs='Paletizar tudo';
     }
 
-    // Para cálculo de ocupação linear usa Pal. Nec. real (não a alocação do veículo)
-    if(!zerarAltura)palConsiderado+=g.paletesNecExibicao;
+    // Para cálculo de ocupação linear usa Pal. Nec. exibido (considera ajuste manual do usuário)
+    palConsiderado+=g.paletesNecExibicao;
 
     if(g.UM==='KG'&&g.qtdeOriginalKg>0)
       g.obs+=` · ${formatKg(g.qtdeOriginalKg)} kg ÷ ${g.plcxRef} = ${Math.round(g.qtdeCX)} cx`;
     if(g.alertaAlturaBaixa)
       g.obs+=` · ⚠️ Altura baixa: ${altM.toFixed(2)}m menor que ${LIMITE_ALTURA_BAIXA_M.toFixed(2)}m`;
-    if(zerarAltura)
+    if(zerarAltura&&!temOverride)
       g.obs+=` · 🚫 Pal. Nec. zerado: altura ${altM.toFixed(2)}m menor que ${LIMITE_ALTURA_ZERAR_M.toFixed(2)}m`;
+    if(g.editado)
+      g.obs+=` · ✏️ Ajustado manualmente (calculado: ${valorCalculado})`;
   });
 
 
@@ -142,15 +467,17 @@ function calcularTudo(materiais,codigosNaoEncontrados){
   let statPeso=totalPeso<=pesoMax?'✅ Dentro do peso':'❌ Excede peso';
   let statAlt=(maiorAlt/100<=altMax&&maiorAlt/100<=altLivre)?'✅ Altura OK':'❌ Excede altura';
   let baixa=grupos.some(n=>map[n].alertaAlturaBaixa);
+  let temAjusteManual=grupos.some(n=>map[n].editado);
 
   document.getElementById('bubbleResultMsg').textContent=excede||baixa||perc>100?'⚠️ Processado com alertas — verifique os grupos.':'✅ Carga processada com sucesso!';
+  document.getElementById('bubbleResultSub').textContent=temAjusteManual?'Confira o resumo abaixo. Há ajustes manuais ativos na coluna Pal. Nec.':'Confira o resumo abaixo.';
 
   let alerta=[];
   if(perc>100)alerta.push('Ocupação ultrapassa a metragem do veículo; paletes excedentes aparecem em vermelho fora do baú.');
   if(excede)alerta.push('Grupos com excedente — verifique a coluna Obs.');
   if(baixa)alerta.push(`Há grupo(s) com Alt. Pallet menor que ${LIMITE_ALTURA_BAIXA_M.toFixed(2)}m.`);
   if(codigosNaoEncontrados.size)alerta.push(`Código(s) não cadastrado(s): ${[...codigosNaoEncontrados].join(', ')}`);
-  document.getElementById('alertaCritico').innerHTML=alerta.length?`<div class="alerta-critico">🚨 ${alerta.join(' | ')}</div>`:'';
+  document.getElementById('alertaCritico').innerHTML=alerta.length?`<div class="alerta-critico">🚨 <span>${alerta.join(' | ')}</span></div>`:'';
 
   document.getElementById('resumoStatus').innerHTML=`<div class="status-painel"><div class="status-chip ${chip(statPal)}"><span class="chip-label">📦 Paletes</span><span class="badge ${badge(statPal)}">${statPal}</span></div><div class="status-chip ${chip(statComp)}"><span class="chip-label">📏 Comprimento</span><span class="badge ${badge(statComp)}">${statComp}</span></div><div class="status-chip ${chip(statPeso)}"><span class="chip-label">⚖️ Peso</span><span class="badge ${badge(statPeso)}">${statPeso}</span></div><div class="status-chip ${chip(statAlt)}"><span class="chip-label">📐 Altura</span><span class="badge ${badge(statAlt)}">${statAlt}</span></div></div>`;
 
@@ -162,7 +489,7 @@ function calcularTudo(materiais,codigosNaoEncontrados){
   document.getElementById('formulaContainer').innerHTML=`<div class="formula-box"><strong>Fórmula aplicada:</strong> ${modo}: ocupação = ${ocup.toFixed(2)} m. · Altura por camada: <strong>ceil(Qtde CX / Cx Lastro) × A(cm)</strong>. · Altura baixa: menor que ${LIMITE_ALTURA_BAIXA_M.toFixed(2)}m.</div>`;
 
   let data=document.getElementById('dataCarregamento').value,of=document.getElementById('ordemFrete').value,frete=document.getElementById('tipoFrete').value,veic=document.querySelector('.vehicle-btn.selected .v-name')?.textContent||'';
-  document.getElementById('fichaIdentidade').innerHTML=`${data?`<div><b>Data</b><br>${new Date(data+'T12:00:00').toLocaleDateString('pt-BR')}</div>`:''}${of?`<div><b>Ordem de Frete</b><br>${of}</div>`:''}<div><b>Tipo de Frete</b><br>${frete}</div><div><b>Veículo</b><br>${veic}</div>`;
+  document.getElementById('fichaIdentidade').innerHTML=`${data?`<div><b>Data</b>${new Date(data+'T12:00:00').toLocaleDateString('pt-BR')}</div>`:''}${of?`<div><b>Ordem de Frete</b>${of}</div>`:''}<div><b>Tipo de Frete</b>${frete}</div><div><b>Veículo</b>${veic}</div>`;
 
   let tbody=document.getElementById('corpoResultados');
   tbody.innerHTML='';
@@ -170,14 +497,35 @@ function calcularTudo(materiais,codigosNaoEncontrados){
     let g=map[n],tr=document.createElement('tr');
     tr.className=linha(g.status);
     if(g.alertaAlturaBaixa)tr.classList.add('row-lowheight');
-    tr.innerHTML=`<td><strong>${n}</strong></td><td>${g.UM}</td><td>${g.qtdeCX.toFixed(1)}</td><td>${g.cxPallet}</td><td>${g.paletesNecExibicao}</td><td>${g.paletesMax}</td><td>${(g.altura/100).toFixed(2)} m ${g.alertaAlturaBaixa?'<span class="altura-baixa-tag">Baixa</span>':''}</td><td class="${g.status==='✅ OK'?'status-ok':'status-excede'}">${g.status}</td><td>${g.obs}</td>`;
+    if(g.editado)tr.classList.add('row-edited');
+    let palNecCell=`<div class="palnec-cell${g.editado?' is-edited':''}">
+        <input type="number" class="palnec-input" min="0" step="1" value="${g.paletesNecExibicao}" data-grupo="${n}" onchange="onPalNecChange(this)" onclick="this.select()">
+        <button class="palnec-reset" title="Restaurar valor calculado" onclick="resetPalNec('${n}')" ${g.editado?'':'hidden'}>↺</button>
+      </div>${g.editado?'<span class="edited-tag">manual</span>':''}`;
+    tr.innerHTML=`<td><strong>${n}</strong></td><td>${g.UM}</td><td>${g.qtdeCX.toFixed(1)}</td><td>${g.cxPallet}</td><td>${palNecCell}</td><td>${g.paletesMax}</td><td>${(g.altura/100).toFixed(2)} m ${g.alertaAlturaBaixa?'<span class="altura-baixa-tag">Baixa</span>':''}</td><td class="${g.status==='✅ OK'?'status-ok':'status-excede'}">${g.status}</td><td>${g.obs}</td>`;
     tbody.appendChild(tr);
   });
 
   document.getElementById('rodapeResultados').innerHTML=`<tr class="totals-row"><td colspan="2"><strong>TOTAL</strong></td><td>${totalCX.toFixed(1)}</td><td></td><td>${palConsiderado}</td><td>${palMaxTot}</td><td>${(maiorAlt/100).toFixed(2)} m</td><td colspan="2">Ocup.: ${ocup.toFixed(2)} m (${perc.toFixed(1)}%) · ${cxForaTot.toFixed(1)} cx fora</td></tr>`;
+
+  ultimoMapaCalculado={materiais,codigosNaoEncontrados};
 }
 
-function limparTudo(){document.getElementById('textoMateriais').value='';['alertaCritico','resumoStatus','ocupacaoGauge','resumoContainer','formulaContainer','corpoResultados','rodapeResultados','fichaIdentidade','paleteVisualizacao'].forEach(id=>{let el=document.getElementById(id);if(el)el.innerHTML=''})}
+// Chamado quando o usuário edita manualmente o valor de Pal. Nec. de um grupo na tabela.
+function onPalNecChange(input){
+  let grupo=input.dataset.grupo,v=parseInt(input.value,10);
+  if(isNaN(v)||v<0)v=0;
+  input.value=v;
+  overridesPalNec[grupo]=v;
+  processarCarga();
+}
+// Restaura o valor calculado automaticamente para um grupo, removendo o ajuste manual.
+function resetPalNec(grupo){
+  delete overridesPalNec[grupo];
+  processarCarga();
+}
+
+function limparTudo(){document.getElementById('textoMateriais').value='';overridesPalNec={};['alertaCritico','resumoStatus','ocupacaoGauge','resumoContainer','formulaContainer','corpoResultados','rodapeResultados','fichaIdentidade','paleteVisualizacao'].forEach(id=>{let el=document.getElementById(id);if(el)el.innerHTML=''})}
 function reiniciarTudo(){limparTudo();activateStep(1)}
 function imprimirRelatorio(){let agora=new Date();document.getElementById('dataImpressao').textContent='Relatório gerado em '+agora.toLocaleDateString('pt-BR')+' às '+agora.toLocaleTimeString('pt-BR');window.print()}
 window.onload=()=>{document.getElementById('dataCarregamento').value=new Date().toISOString().slice(0,10);atualizarBadgeFrete();atualizarDescModo();['paletesDisp','compVeic','pesoMax','alturaMaxPalete','alturaLivreVeic','lPalete','cPalete'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{atualizarDescModo();processarCarga()}))};
