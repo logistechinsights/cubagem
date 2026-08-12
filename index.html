@@ -336,6 +336,16 @@ function getProduto(c){return produtos.find(p=>p.codigo===c)}
 function parseNumeroBR(str){let s=String(str||'').trim().replace(/\s+/g,'');if(!s)return NaN;if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');else{let p=s.split('.');if(p.length>2||(p.length===2&&p[1].length===3))s=s.replace(/\./g,'')}return parseFloat(s)}
 function parseMateriais(txt){let items=[],codigosNaoEncontrados=new Set();for(let line of txt.split('\n')){line=line.trim();if(!line)continue;let parts=line.split('\t').map(s=>s.trim()).filter(Boolean);if(parts.length<2)parts=line.split(/\s{2,}/).map(s=>s.trim()).filter(Boolean);if(parts.length<2)parts=line.split(/\s+/).map(s=>s.trim()).filter(Boolean);if(parts.length<2)continue;let numCode=parseInt(parts[0],10),qty=parseNumeroBR(parts.at(-1));if(isNaN(numCode)||isNaN(qty)||qty<=0)continue;let prod=getProduto(numCode);if(!prod){codigosNaoEncontrados.add(numCode);continue}items.push({codigo:numCode,quantidade:qty,prod})}return{items,codigosNaoEncontrados}}
 function badge(s){return s.includes('✅')?'badge-ok':s.includes('⚠️')?'badge-warn':s.includes('❌')?'badge-danger':'badge-info'}function chip(s){return s.includes('✅')?'chip-ok':s.includes('⚠️')?'chip-warn':s.includes('❌')?'chip-danger':''}function linha(s){return s.includes('⚠️')?'row-warn':s.includes('❌')?'row-danger':''}function corGauge(p){return p>90?'var(--bad)':p>=70?'var(--ok)':'var(--teal-500)'}function alturaCamadas(prod,qtd){if(!prod||qtd<=0)return 0;let cx=+prod.cxLastro||0,a=+prod.Acm||0,cheio=+prod.altPallet||0;if(cx<=0||a<=0)return cheio;let calc=Math.ceil(qtd/cx)*a;return cheio>0?Math.min(calc,cheio):calc}function formatKg(v){return Math.round(v).toLocaleString('pt-BR').replace(/,/g,'.')}
+function calcularPaletesNecessarios(qtdeCX,cxPallet){
+  qtdeCX=Number(qtdeCX)||0;
+  cxPallet=Number(cxPallet)||0;
+  if(qtdeCX<=0||cxPallet<=0)return 0;
+  const resultado=qtdeCX/cxPallet;
+  const inteiro=Math.floor(resultado);
+  const decimal=resultado-inteiro;
+  if(inteiro===0)return 1;
+  return decimal>0.5?inteiro+1:inteiro;
+}
 function capacidadeFisicaPaletes(modo,comp,cPal,lPal,palDisp){let porCol=2,passo=cPal;if(modo==='solteiro'){porCol=1;passo=cPal}else if(modo==='bico'){porCol=2;passo=lPal}else{porCol=2;passo=cPal}let col=Math.floor((+comp||0)/(+passo||1));return Math.max(0,Math.min(+palDisp||0,col*porCol))}
 function gerarSVGPaletes(total,modo,palDisp,comp,cPal,lPal){if(total<=0)return'';let insideCap=capacidadeFisicaPaletes(modo,comp,cPal,lPal,palDisp);let insideFilled=Math.min(total,insideCap),overflow=Math.max(0,total-insideCap);const bodyX=82,bodyY=35,bodyH=88,innerPad=7,gap=5,overGap=16;let slotW=22,cols=1,rects='',overflowRects='';function addSlot(x,y,w,h,num,state,horiz){let fill=state==='over'?'#FBDFE1':state==='filled'?(horiz?'#C8E6C9':'#C7EDF0'):'#F3F7FD';let stroke=state==='over'?'#9F2330':state==='filled'?(horiz?'#2E7D32':'#0B7C7C'):'#9EB0C8';let op=state==='empty'?.55:1;return `<g><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${fill}" stroke="${stroke}" stroke-width="${state==='empty'?1:1.8}" opacity="${op}"/>${state==='empty'?'':`<text x="${x+w/2}" y="${y+h/2}" font-size="9" font-weight="800" fill="${stroke}" text-anchor="middle" dominant-baseline="central">${num}</text>`}</g>`}
 function drawRange(count,filledCount,startX,startNum,stateOverflow){let out='',sW=slotW;if(modo==='solteiro'){sW=22;let h=40,y=bodyY+(bodyH-h)/2;for(let i=0;i<count;i++){let st=stateOverflow?'over':(i<filledCount?'filled':'empty');out+=addSlot(startX+i*(sW+gap),y,sW,h,startNum+i,st,false)}}else if(modo==='bico'){sW=34;let h=32;for(let i=0;i<count;i++){let c=Math.floor(i/2),r=i%2;let st=stateOverflow?'over':(i<filledCount?'filled':'empty');out+=addSlot(startX+c*(sW+gap),bodyY+8+r*(h+7),sW,h,startNum+i,st,true)}}else if(modo==='cruzado'){let vW=22,vH=36,hW=36,hH=25,colW=40;sW=colW;for(let i=0;i<count;i++){let c=Math.floor(i/2),top=i%2===0,x=startX+c*(colW+gap);let st=stateOverflow?'over':(i<filledCount?'filled':'empty');out+=top?addSlot(x,bodyY+7,vW,vH,startNum+i,st,false):addSlot(x,bodyY+bodyH-hH-7,hW,hH,startNum+i,st,true)}}else{sW=22;let h=36;for(let i=0;i<count;i++){let c=Math.floor(i/2),r=i%2;let st=stateOverflow?'over':(i<filledCount?'filled':'empty');out+=addSlot(startX+c*(sW+gap),bodyY+7+r*(h+5),sW,h,startNum+i,st,false)}}slotW=sW;return out}
@@ -381,8 +391,8 @@ function calcularTudo(materiais,codigosNaoEncontrados){
     let g=map[nome];
     totalCX+=g.qtdeCX;
     totalPeso+=g.pesoBruto;
-    // Pal. Nec. REAL: sempre ceil(qtdeCX / cxPallet) — não depende do veículo
-    g.paletesNecReal=g.cxPallet&&g.qtdeCX?Math.ceil(g.qtdeCX/g.cxPallet):0;
+    // Pal. Nec. REAL: até 0,50 mantém o inteiro; acima de 0,50 arredonda para cima
+    g.paletesNecReal=calcularPaletesNecessarios(g.qtdeCX,g.cxPallet);
     totalPalNec+=g.paletesNecReal;
     // Altura do palete
     if(g.qtdeCX>=g.cxPallet) g.altura=g.alturaCadastro;
